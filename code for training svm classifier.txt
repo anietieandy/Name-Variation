@@ -1,0 +1,41 @@
+Python 3.4.4 (v3.4.4:737efcadf5a6, Dec 20 2015, 19:28:18) [MSC v.1600 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy as np
+>>> from sklearn.pipeline import Pipeline
+>>> from sklearn.feature_extraction.text import CountVectorizer
+>>> from sklearn.svm import LinearSVC
+>>> from sklearn.feature_extraction.text import TfidfTransformer
+>>> from sklearn.multiclass import OneVsRestClassifier
+>>> x_train = np.array(['new york is a hell of a town','new york was originally dutch', 'the big apple is great', 'new york is also called the big apple','nyc is nice', 'people abbreviat new york city as nyc','the capital of great britain is london', 'london is in the uk', 'london is in england','london is in great britain', 'it rains a lot in london', 'london hosts the british museum','new york is great and so is london','i like london better than new york'])
+>>> len(x_train)
+14
+>>> y_train=[[0],[0],[0],[0],[0],[0],[1],[1],[1],[1],[1],[1],[0,1],[0,1]]
+>>> x_test = np.array(['nice day in nyc', 'welcome to london', 'hello welcome to new york. enjoy it here and london too'])
+>>> target_names = ['New York', 'London']
+>>> classifier = Pipeline([('vectorizer', CountVectorizer()), ('tfidf', TfidfTransformer()), ('clf', OneVsRestClassifier(LinearSVC()))])
+>>> classifier.fit(x_train, y_train)
+C:\Python34\lib\site-packages\sklearn\utils\multiclass.py:194: DeprecationWarning: Direct support for sequence of sequences multilabel representation will be unavailable from version 0.17. Use sklearn.preprocessing.MultiLabelBinarizer to convert to a label indicator representation.
+  DeprecationWarning)
+C:\Python34\lib\site-packages\sklearn\utils\multiclass.py:194: DeprecationWarning: Direct support for sequence of sequences multilabel representation will be unavailable from version 0.17. Use sklearn.preprocessing.MultiLabelBinarizer to convert to a label indicator representation.
+  DeprecationWarning)
+C:\Python34\lib\site-packages\sklearn\utils\multiclass.py:194: DeprecationWarning: Direct support for sequence of sequences multilabel representation will be unavailable from version 0.17. Use sklearn.preprocessing.MultiLabelBinarizer to convert to a label indicator representation.
+  DeprecationWarning)
+C:\Python34\lib\site-packages\sklearn\utils\multiclass.py:194: DeprecationWarning: Direct support for sequence of sequences multilabel representation will be unavailable from version 0.17. Use sklearn.preprocessing.MultiLabelBinarizer to convert to a label indicator representation.
+  DeprecationWarning)
+Pipeline(steps=[('vectorizer', CountVectorizer(analyzer='word', binary=False, charset=None,
+        charset_error=None, decode_error='strict',
+        dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+        lowercase=True, max_df=1.0, max_features=None, min_df=1,
+        ngram_range=(1, 1), p...lti_class='ovr', penalty='l2',
+     random_state=None, tol=0.0001, verbose=0),
+          n_jobs=1))])
+>>> predicted = classifier.predict(x_test)
+C:\Python34\lib\site-packages\sklearn\preprocessing\label.py:636: DeprecationWarning: Direct support for sequence of sequences multilabel representation will be unavailable from version 0.17. Use sklearn.preprocessing.MultiLabelBinarizer to convert to a label indicator representation.
+  DeprecationWarning)
+>>> for items, labels in zip(x_test, predicted):
+...     print('%s => %s' % (items, ','.join(target_names[x] for x in labels)))
+...
+nice day in nyc => New York
+welcome to london => London
+hello welcome to new york. enjoy it here and london too => New York,London
+>>>

@@ -1,0 +1,323 @@
+Gensim word2vec nlpgrid 
+
+aandy@nlpgrid:~/nlp> ls
+GoogleNews-vectors-negative300.bin  grammy_tweets_only.txt  word.csv
+aandy@nlpgrid:~/nlp> gunzip -k GoogleNews-vectors-negative300.bin
+gzip: GoogleNews-vectors-negative300.bin: unknown suffix -- ignored
+aandy@nlpgrid:~/nlp> wget https://dumps.wikimedia.org/swwiki/latest/swwiki-latest-pages-articles.xml.bz2
+--2017-03-08 03:08:06--  https://dumps.wikimedia.org/swwiki/latest/swwiki-latest-pages-articles.xml.bz2
+Resolving dumps.wikimedia.org (dumps.wikimedia.org)... 208.80.154.11, 2620:0:861:1:208:80:154:11
+Connecting to dumps.wikimedia.org (dumps.wikimedia.org)|208.80.154.11|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 21607977 (21M) [application/octet-stream]
+Saving to: ‘swwiki-latest-pages-articles.xml.bz2’
+
+100%[======================================>] 21,607,977  1.74MB/s   in 11s
+
+2017-03-08 03:08:17 (1.85 MB/s) - ‘swwiki-latest-pages-articles.xml.bz2’ saved [21607977/21607977]
+
+aandy@nlpgrid:~/nlp> python
+Python 2.7.12 (default, Jul 01 2016, 15:34:22) [GCC] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import multiprocessing
+>>> from gensim.corpora.wikicorpus import WikiCorpus
+>>> from gensim.models.word2vec import LineSentence
+>>> from gensim.models.word2vec import Word2Vec
+>>> wiki=WikiCorpus('swwiki-latest-pages-articles.xml.bz2',lemmatize=False, dictionary={})
+>>> sentences = list(wiki.get_texts())
+>>> params = {'size':200, 'window':10, 'min_count':10, 'workers':max(1, multiprocessing.cpu_count() - 1), 'sample': 1E-3,}
+>>> word2vec = Word2Vec(sentences, **params)
+>>> word2vec.most_similar(positive=['woman','king'], negative=['man'])
+[('thinking', 0.550881028175354), ('listen', 0.5441591739654541), ('wonderful', 0.5392662882804871), ('tape', 0.5346732139587402), ('sent', 0.5320721864700317), ('karyn', 0.5318803191184998), ('shanks', 0.5285177826881409), ('dress', 0.5260292291641235), ('losing', 0.5234332084655762), ('cherrelle', 0.5218420028686523)]
+>>> word2vec.similarity('jay-z','jay z')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1279, in similarity
+    return dot(matutils.unitvec(self[w1]), matutils.unitvec(self[w2]))
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1259, in __getitem__
+    return self.syn0[self.vocab[words].index]
+KeyError: 'jay-z'
+>>> word2vec.similarity('jayz','jay z')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1279, in similarity
+    return dot(matutils.unitvec(self[w1]), matutils.unitvec(self[w2]))
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1259, in __getitem__
+    return self.syn0[self.vocab[words].index]
+KeyError: 'jayz'
+>>> word2vec.similarity('barack_obama','obama')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1279, in similarity
+    return dot(matutils.unitvec(self[w1]), matutils.unitvec(self[w2]))
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1259, in __getitem__
+    return self.syn0[self.vocab[words].index]
+KeyError: 'barack_obama'
+>>> word2vec.similarity('barrack_obama','obama')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1279, in similarity
+    return dot(matutils.unitvec(self[w1]), matutils.unitvec(self[w2]))
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1259, in __getitem__
+    return self.syn0[self.vocab[words].index]
+KeyError: 'barrack_obama'
+>>> word2vec.similarity('woman','man')
+0.42407169183330179
+
+
+============================================
+ 
+import logging
+import os.path
+import sys
+ 
+from gensim.corpora import WikiCorpus
+ 
+if __name__ == '__main__':
+    program = os.path.basename(sys.argv[0])
+    logger = logging.getLogger(program)
+ 
+    logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+    logging.root.setLevel(level=logging.INFO)
+    logger.info("running %s" % ' '.join(sys.argv))
+ 
+    # check and process input arguments
+    if len(sys.argv) < 3:
+        print globals()['__doc__'] % locals()
+        sys.exit(1)
+    inp, outp = sys.argv[1:3]
+    space = " "
+    i = 0
+ 
+    output = open(outp, 'w')
+    wiki = WikiCorpus(inp, lemmatize=False, dictionary={})
+    for text in wiki.get_texts():
+        output.write(space.join(text) + "\n")
+        i = i + 1
+        if (i % 10000 == 0):
+            logger.info("Saved " + str(i) + " articles")
+ 
+    output.close()
+    logger.info("Finished Saved " + str(i) + " articles")
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	==========================================================
+	
+	#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import logging
+import os.path
+import sys
+import multiprocessing
+ 
+from gensim.corpora import  WikiCorpus
+from gensim.models import Word2Vec
+from gensim.models.word2vec import LineSentence
+ 
+ 
+if __name__ == '__main__':
+    program = os.path.basename(sys.argv[0])
+    logger = logging.getLogger(program)
+ 
+    logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s')
+    logging.root.setLevel(level=logging.INFO)
+    logger.info("running %s" % ' '.join(sys.argv))
+ 
+    # check and process input arguments
+ 
+    if len(sys.argv) < 3:
+        print globals()['__doc__'] % locals()
+        sys.exit(1)
+    inp, outp = sys.argv[1:3]
+ 
+    model = Word2Vec(LineSentence(inp), size=400, window=5, min_count=5, workers=multiprocessing.cpu_count())
+ 
+    # trim unneeded model memory = use (much) less RAM
+    model.init_sims(replace=True)
+ 
+    model.save(outp)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	===========================================
+	
+	In [1]: import gensim
+ 
+In [2]: model = gensim.models.Word2Vec.load("wiki.en.10w.model")
+ 
+In [3]: model.most_similar("queen")
+Out[3]: 
+[(u'princess', 0.5976558327674866),
+ (u'elizabeth', 0.591829776763916),
+ (u'consort', 0.5514105558395386),
+ (u'drottningens', 0.5454206466674805),
+ (u'regnant', 0.5419434309005737),
+ (u'f\xf6delsedag', 0.5259706974029541),
+ (u'saovabha', 0.5250850915908813),
+ (u'margrethe', 0.5195728540420532),
+ (u'mary', 0.5035395622253418),
+ (u'armgard', 0.5028442144393921)]
+ 
+In [4]: model.most_similar("man")
+Out[4]: 
+[(u'woman', 0.6305292844772339),
+ (u'boy', 0.5495858788490295),
+ (u'girl', 0.5382533073425293),
+ (u'bespectacled', 0.44303444027900696),
+ (u'eutychus', 0.43531811237335205),
+ (u'coochie', 0.42641448974609375),
+ (u'soldier', 0.4228038191795349),
+ (u'hater', 0.4212420582771301),
+ (u'mannish', 0.4139400124549866),
+ (u'bellybutton', 0.4139178991317749)]
+ 
+In [5]: model.similarity("man", "woman")
+Out[5]: 0.63052930788363182
+ 
+In [6]: model.similarity("girl", "woman")
+Out[6]: 0.59083314898425321
+
+
+================================
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+ 
+import logging
+import os.path
+import sys
+import multiprocessing
+ 
+from gensim.corpora import WikiCorpus
+from gensim.models import Word2Vec
+from gensim.models.word2vec import LineSentence
+ 
+if __name__ == '__main__':
+    program = os.path.basename(sys.argv[0])
+    logger = logging.getLogger(program)
+ 
+    logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+    logging.root.setLevel(level=logging.INFO)
+    logger.info("running %s" % ' '.join(sys.argv))
+ 
+    # check and process input arguments
+    if len(sys.argv) < 4:
+        print globals()['__doc__'] % locals()
+        sys.exit(1)
+    inp, outp1, outp2 = sys.argv[1:4]
+ 
+    model = Word2Vec(LineSentence(inp), size=400, window=5, min_count=5,
+            workers=multiprocessing.cpu_count())
+ 
+    # trim unneeded model memory = use(much) less RAM
+    #model.init_sims(replace=True)
+    model.save(outp1)
+    model.save_word2vec_format(outp2, binary=False)
+	
+	
+	===============================================
+	In [2]: import gensim
+ 
+In [3]: model = gensim.models.Word2Vec.load_word2vec_format("wiki.en.text.vector", binary=False)
+ 
+In [4]: model.most_similar("queen")
+Out[4]: 
+[(u'princess', 0.5760838389396667),
+ (u'hyoui', 0.5671186447143555),
+ (u'janggyung', 0.5598698854446411),
+ (u'king', 0.5556215047836304),
+ (u'dollallolla', 0.5540223121643066),
+ (u'loranella', 0.5522741079330444),
+ (u'ramphaiphanni', 0.5310937166213989),
+ (u'jeheon', 0.5298476219177246),
+ (u'soheon', 0.5243583917617798),
+ (u'coronation', 0.5217245221138)]
+ 
+In [5]: model.most_similar("man")
+Out[5]: 
+[(u'woman', 0.7120707035064697),
+ (u'girl', 0.58659827709198),
+ (u'handsome', 0.5637181997299194),
+ (u'boy', 0.5425317287445068),
+ (u'villager', 0.5084836483001709),
+ (u'mustachioed', 0.49287813901901245),
+ (u'mcgucket', 0.48355430364608765),
+ (u'spider', 0.4804879426956177),
+ (u'policeman', 0.4780033826828003),
+ (u'stranger', 0.4750771224498749)]
+ 
+In [6]: model.most_similar("woman")
+Out[6]: 
+[(u'man', 0.7120705842971802),
+ (u'girl', 0.6736541986465454),
+ (u'prostitute', 0.5765659809112549),
+ (u'divorcee', 0.5429972410202026),
+ (u'person', 0.5276163816452026),
+ (u'schoolgirl', 0.5102938413619995),
+ (u'housewife', 0.48748138546943665),
+ (u'lover', 0.4858251214027405),
+ (u'handsome', 0.4773051142692566),
+ (u'boy', 0.47445783019065857)]
+ 
+In [8]: model.similarity("woman", "man")
+Out[8]: 0.71207063453821218
+ 
+In [10]: model.doesnt_match("breakfast cereal dinner lunch".split())
+Out[10]: 'cereal'
+ 
+In [11]: model.similarity("woman", "girl")
+Out[11]: 0.67365416785207421
+ 
+In [13]: model.most_similar("frog")
+Out[13]: 
+[(u'toad', 0.6868536472320557),
+ (u'barycragus', 0.6607867479324341),
+ (u'grylio', 0.626731276512146),
+ (u'heckscheri', 0.6208407878875732),
+ (u'clamitans', 0.6150864362716675),
+ (u'coplandi', 0.612680196762085),
+ (u'pseudacris', 0.6108512878417969),
+ (u'litoria', 0.6084023714065552),
+ (u'raniformis', 0.6044802665710449),
+ (u'watjulumensis', 0.6043726205825806)]
+Everything is ok, but when we load the numpy model, we still met the “RuntimeWarning: invalid value encountered in divide” problem:
+
+In [1]: import gensim 
+ 
+In [2]: model = gensim.models.Word2Vec.load("wiki.en.text.model")
+ 
+In [3]: model.most_similar("man")
+... RuntimeWarning: invalid value encountered in divide
+  self.syn0norm = (self.syn0 / sqrt((self.syn0 ** 2).sum(-1))[..., newaxis]).astype(REAL)
+ 
+Out[3]: 
+[(u'ahsns', nan),
+ (u'ny\xedl', nan),
+ (u'indradeo', nan),
+ (u'jaimovich', nan),
+ (u'addlepate', nan),
+ (u'jagello', nan),
+ (u'festenburg', nan),
+ (u'picatic', nan),
+ (u'tolosanum', nan),
+ (u'mithoo', nan)]

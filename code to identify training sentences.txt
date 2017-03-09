@@ -1,0 +1,261 @@
+==Correct and shorter and better=========
+Python 3.4.4 (v3.4.4:737efcadf5a6, Dec 20 2015, 19:28:18) [MSC v.1600 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import nltk
+>>> tweets=[]
+>>> import sklearn
+>>> with open('bin1.txt') as f:
+...      for line in f:
+...          tweets.append(line.lower().strip('\n'))
+...
+>>> jt = []
+>>> for x in tweets:
+...     if 'justin timberlake' in x:
+...         jt.append(x)
+...
+>>> import random
+>>> from random import randint
+>>> h=len(jt)
+>>> jt_ran = randint(0,h)
+>>> jt_ran
+155
+>>> jt_tweet = jt[jt_ran]
+>>> jt_tweet
+'justin timberlake #marryme #grammyawards'
+>>> jt_ran = jt_ran[102]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not subscriptable
+>>> jt_ran = jt[102]
+>>> jt_ran
+'justin timberlake performance&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt'
+>>> jt_ran = jt_ran.replace('&gt;', '')
+>>> jt_ran
+'justin timberlake performance&gt'
+>>> jt_ran = jt_ran.replace('e&gt;', 'e')
+>>> jt_ram
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'jt_ram' is not defined
+>>> jt_ran
+'justin timberlake performance&gt'
+>>> jt_ran='justin timberlake performance'
+>>> new_jt=[]
+>>> for x in jt:
+... sre
+  File "<stdin>", line 2
+    sre
+      ^
+IndentationError: expected an indented block
+>>> def seq(s1,s2):
+...     words1 = s1.split()
+...     words2 = s2.split()
+...     matcherre
+... er
+  File "<stdin>", line 5
+    er
+     ^
+SyntaxError: invalid syntax
+>>> import difflib
+>>> def seq(s1,s2):
+...     words1 = s1.split()
+...     words2 = s2.split()
+...     matcher = difflib.SequenceMatcher(a=words1, b=words2)
+...     for block in matcher.get_matching_blocks():
+...         if block.size==0:
+...            continue
+...         yield ' '.join(words1[block.a:block.a+block.size])
+...
+>>> for x in jt:
+...     l = nltk.word_tokenize(' '.join(list(seq(jj, x))))
+...     if len(l) > 2:
+...     new_jt.append(x)
+  File "<stdin>", line 4
+    new_jt.append(x)
+         ^
+IndentationError: expected an indented block
+>>>
+>>> for x in jt:
+...     l = nltk.word_tokenize(' '.join(list(seq(jj, x))))
+...     if len(l) > 2:
+...        new_jt.append(x)
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+NameError: name 'jj' is not defined
+>>> for x in jt:
+...     l = nltk.word_tokenize(' '.join(list(seq(jt_ran, x))))
+...     if len(l) > 2:
+...        new_jt.append(x)
+...
+>>> len(new_jt)
+9
+>>> new_jt
+["im ready to see justin timberlake performance #grammy's", 'justin timberlake best performance so far. ##grammys #jayz', "ugh!! my tv's color would go out during the justin timberlake performance #justmyluck #grammys", '*insert joke about tv quality during justin timberlake performance here* #2013grammys', 'this justin timberlake performance is so boss! #grammys', 'justin timberlake just shut it down hasthe world in his palm right now. best performance period.  #grammys', 'justin timberlake performance isnt that bad actually. #grammys', 'the justin timberlake and jay-z performance &gt;&gt;&gt;&gt;&gt;&gt; #the55thgrammys', "is justin timberlake trying to be usher? i'm so confused by this performance #grammys"]
+>>>
+
+
+====================Correct but longer=======================================
+Python 3.4.4 (v3.4.4:737efcadf5a6, Dec 20 2015, 19:28:18) [MSC v.1600 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sklearn
+>>> import nltk
+>>> tweets=[]
+>>> with open('bin1.txt') as f:
+...      for line in f:
+...          tweets.append(line.lower().strip('\n,))
+  File "<stdin>", line 3
+    tweets.append(line.lower().strip('\n,))
+                                          ^
+SyntaxError: EOL while scanning string literal
+>>> with open('bin1.txt') as f:
+...      for line in f:
+...          tweets.append(line.lower().strip('\n'))
+...
+>>> jt=[]
+>>> for x in tweets:
+...     if 'justin timberlake' in x:
+...         jt.append(x)
+...
+>>> import random
+>>> from random import randint
+>>> len(jt)
+249
+>>> h=len(jt)
+>>> jt_ran = randint(0, h)
+>>> jt_ran
+102
+>>> jt_tweet = jt[jt_ran]
+>>> jt_tweet
+'justin timberlake performance&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt'
+>>> jj = jt_tweet.replace('&gt;', '')
+>>> jj
+'justin timberlake performance&gt'
+>>> def seq(s1,s2):
+...     words1=s1.split()
+...     words2=s2.split()
+...     mates
+...
+>>> import difflib
+>>> def seq(s1,s2):
+...     words1=s1.split()
+...     words2=s2.split()
+...     matcher = difflib.SequenceMatcher(a=words1, b=words2)
+...     for block in matcher.get_matching_blocks():
+...         if block.size==0:
+...            continue
+...         yield ' '.join(words1[blcok.a:block.a+block.size])
+...
+>>> jt_train=[]
+>>> for x in jt:
+...     l = list(sequ(jj, x))
+...     if len(l) > 1:
+...        jt_train.append(x)
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+NameError: name 'sequ' is not defined
+>>> for x in jt:
+...     l = list(seq(jj, x))
+...     if len(l) > 1:
+...        jt_train.append(x)
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "<stdin>", line 8, in seq
+NameError: name 'blcok' is not defined
+>>> def seq(s1,s2):
+...     words1=s1.split()
+...     words2=s2.split()
+...     matcher = difflib.SequenceMatcher(a=words1, b=words2)
+...     for block in matcher.get_matching_blocks():
+...         if block.size==0:
+...            continue
+...         yield ' '.join(words1[block.a:block.a+block.size])
+...
+>>> for x in jt:
+...     l = list(seq(jj, x))
+...     if len(l) > 1:
+...        jt_train.append(x)
+...
+>>> len(jt)
+249
+>>> l
+['justin timberlake']
+>>> len(l)
+1
+>>> len(jt)
+249
+>>> len(jt_train)
+1
+>>> jt_train
+["@creoletexan: waiting impatiently for justin timberlake's performance. http://t.co/vu4pmiap #getglue @thegrammys adrienne timberlake"]
+>>> text1='im ready to see justin timberlake performance #grammy's'
+  File "<stdin>", line 1
+    text1='im ready to see justin timberlake performance #grammy's'
+                                                                 ^
+SyntaxError: invalid syntax
+>>> text1='im ready to see justin timberlake performance #grammy''s'
+>>> text2='justin timberlake performance'
+>>> seq(text1, text2)
+<generator object seq at 0x05BC0FA8>
+>>> print(list(seq(text1,text2)))
+['justin timberlake performance']
+>>> len(list(seq(text1,text2)))
+1
+>>> nltk.word_tokenize(' '.join(list(seq(text1,text2))))
+['justin', 'timberlake', 'performance']
+>>> r=nltk.word_tokenize(' '.join(list(seq(text1,text2))))
+>>> len(r)
+3
+>>> jt_train=[]
+>>> for x in jt:
+...     l = nltk.word_tokenize(' '.join(list(seq(jj, x))))
+...     if len(l) > 2:
+...        jt_train.append(x)
+...
+>>> len(jt_train)
+0
+>>> l
+['justin', 'timberlake']
+>>> for x in jt:
+...     l = nltk.word_tokenize(' '.join(list(seq(jj, x))))
+...     if len(l) > 1:
+...        jt_train.append(x)
+...
+>>> len(jt_train)
+174
+>>> len(jt)
+249
+>>> jt_train[0]
+"can't wait to see justin timberlake perform #grammys"
+>>> jt_train[6]
+'cant wait for justin timberlake to hit the stage. anytime he collabs with timnaland on any project, its magic. #grammys'
+>>> jt_train[30]
+'wait justin timberlake still makes music? #grammys'
+>>> jt_train[78]
+'justin timberlake and jay z just blew my mind #grammyawards'
+>>> l
+['justin', 'timberlake']
+>>> len(l)
+2
+>>> jt
+["can't wait to see justin timberlake perform #grammys", 'justin timberlake... next!  #grammy2013 #grammys #jt', 'justin timberlake gets cool points for that suit and tie record. #grammys', "i dnt like justin timberlake's new song, so for me this will be another boring performance. #grammys", 'so excited for the black keys and justin timberlake and this tribute to bob marley #grammys', "can't wait for justin timberlake's performance...i just love him #grammys", '@ justin timberlake on the #grammys #sosiked #iwannavomit', 'justin timberlake release one track in like 5 years &amp; make it to the grammys - meanwhile yo fav artist just released 6 mix tapes in 2 weeks', "i'm ready for justin timberlake to perform! #grammys", 'cant wait for justin timberlake to hit the stage. anytime he collabs with timnaland on any project, its magic. #grammys', "ready for justin timberlake! he's the  best #grammys", '@thegrammys jay z beyonce bruno mars and justin timberlake of course! :-)', 'justin timberlake  betta do something spectacular hell #grammys', 'if you turn off the grammys before justin timberlake performs im judging you', "@cosmopolitan: justin timberlake: there's still time to reunite with n*sync and surprise us all. #grammys i would cry of happiness. wow", 'justin timberlake is one thing, but will hova put down that drink and join him on stage? #grammys', "watching the #grammy's waiting for my nigga justin timberlake to come out and do his thing oh and my nigga miguel killed it", 'rt @spilmusic: @rosssheingold is there a musician/band you do like at the #grammys? | black keys, justin timberlake, elton john', 'where is my justin timberlake #grammys', 'justin timberlake back on stage #grammys', 'yes! justin timberlake! #grammys', 'justin timberlake woot woot!!! @jtimberlake #grammys', 'omg i am soooooo ready for justin timberlake #grammys', 'justin timberlake?!?! #grammys', 'i lovee justin timberlake &lt;3 #grammys', 'justin timberlake comeback performace! #grammys', 'omg justin timberlake!!!!!!!!!! #grammys', 'justin timberlake  #grammys', 'suit&amp;tie...justin timberlake ...#grammys', 'justin timberlake!!!!!!! #grammys', 'justin timberlake has had more comebacks than brett favre. #grammys', 'justin timberlake is about to bring sexy back again #grammys', 'justin timberlake!! #grammys', 'justin timberlake!!!! finallyyyyy #grammys', 'justin timberlake #grammys', 'yay!! justin timberlake #grammys #lovehim #misshim', 'oh god, justin timberlake #dying #sexy #grammys', 'justin timberlake is back! #grammys', 'lets see the return justin timberlake #grammys', 'justin timberlake is one handsome man. #grammys', "i'm so not interested in seeing justin timberlake #grammys", 'justin timberlake yes #grammys #suitandtie', 'oh yeah! justin timberlake @jtimberlake !!!!!!!!!!! #grammys', 'wait justin timberlake still makes music? #grammys', "im ready to see justin timberlake performance #grammy's", 'i missed justin timberlake! #grammys', 'justin timberlake #rightinthechildhood  #grammys #fullsailgrammys #crymeariver', 'justin timberlake... marry me. #grammys', 'omg omg omg!!!!!!!!! justin timberlake #grammys  #ilovehim @jtimberlake', '*my\tjustin timberlake*my secret crush* #grammys', 'justin timberlake!!!!!! #grammys', 'justin timberlake is god and jesus and the holy spirit #grammys', 'justin timberlake really is perfect #grammys @misshilarypaige', "@thegrammys: he's baaaaaaaack!! justin timberlake brought his suit &amp; tie #grammys", 'damn justin timberlake looks good #grammys', 'justin timberlake #grammys', "i'm goi.g to marry justin timberlake #babyforever &lt;3 !grammys", 'i love justin timberlake!!!!! &lt;3 #grammys', 'justin timberlake black and white ok #grammys', 'justin timberlake is not adam levine now get adam on the screen. #grammys', 'wow i love this retro look. so vintageee. justin timberlake youre a hottie!! #grammys', 'justin timberlake!!!! #grammyawards', 'justin timberlake on the grammys &gt;&gt;&gt; #likedying', 'justin timberlake!!!!!!#grammys #purebrillance #love', "switched to the #grammys in time to see ellen and beyonce introduce justin timberlake. if that wasn't perfect timing, i don't know what is.", 'justin timberlake #ugh #thethingsiddo #allofthethings #grammys', 'aweeeeee justin timberlake #suitandtie shit #grammys', 'justin timberlake making every 90s girls panties wet #grammys', 'justin timberlake just instagram-filtered the grammys.', 'ow ow justin timberlake  &lt;3 #grammys', 'justin timberlake is a fly dude. #grammys', 'justin timberlake is back! #grammys', 'mmmm. justin timberlake #grammys', "either something is wrong with the contrast on my tv... or justin timberlake's performance is very 50'sesque .. #grammyawards", 'justin timberlake! #grammys', 'justin timberlake has that white boy jay-z like swag. i cant hate on that dude. #theworldislistening #grammys', 'justin timberlake! #saynomore #grammys', 'justin timberlake &lt;333333333 you &gt; everyone else. #grammys', "i just wanna lick justin timberlake's skin right off #grammys #inlove ", 'justin timberlakes hair right now...... so cute #grammys', 'justin timberlake annoys me in every way #justsayin #grammys', 'fuck it sorry justin timberlake but i gotta watch the walking dead ok? ok #grammys #twd', 'daughter just asked "who\'s justin timberlake?" lol she\'s 12. #grammys', 'justin timberlake and the tennessee kids! love the switch to black and white :)) #grammys', 'that nigga justin timberlake still cold... #grammyawards #grammys #grammys2013', 'justin timberlake is self-absorbed. and not in the cool way.#grammys', "love it!! and i don't even like justin timberlake! #sepia #oldschool #grammys", 'justin timberlake #grammys', 'oh lordy. justin timberlake #grammys', 'justin timberlake just instagramed the #grammys', 'justin timberlake!!!!! #grammys', 'justin timberlake performing on the grammys &gt;&gt;&gt;&gt; this brings back childhood memories lol', 'welcome back justin timberlake! #grammys', 'justin timberlake made the tv black and white #grammys #fullsailgrammys', '#grammys suit and tie by justin timberlake', 'justin timberlake is such a good performed. #grammyawards', 'justin timberlake  is back #grammy2013', 'i will always love justin timberlake &lt;3 #grammys', 'my dad: "justin timberlake is like the white michael jackson"  well yes, they both have amazing talent dad #grammys', 'justin timberlake will not be available in technicolor tonight.  #grammys', "justin timberlake!!! aaahhh!! i've been waiting for this moment forever!!!!! :) #thegrammys", 'justin timberlake broke my tv its all black and white #grammys', 'justin timberlake performance&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt', 'justin timberlake!!! #missedhim #grammys', "@writerross #grammy confession: i never liked justin timberlake until he started appearing on snl. now, i'm all in.", 'i could watch justin timberlake all day #grammys', 'black and white for justin timberlake....hhhmmm.... #grammys', 'alan alda is not dancing with justin timberlake. #alanaldagrammywatch', 'justin timberlake. #nufsaid #grammys', 'i love justin timberlake #thegrammys', 'justin timberlake. love how everything is blac and white. oh shit jay z  #grammys', 'two things i watched the grammys for: justin timberlake and adam levine ', 'justin timberlake... drooling.. as long as i got my suit &amp; tie... #grammys &amp;&amp; jayz ', 'justin timberlake and jay-z  #grammy2013', 'jay-z rescues justin timberlake. #grammys', 'justin timberlake best performance so far. ##grammys #jayz', 'jay-z and justin timberlake #amazing #grammys', 'justin timberlake and jay z just blew my mind #grammyawards', "ugh!! my tv's color would go out during the justin timberlake performance #justmyluck #grammys", "love it! @thegrammys: he's baaaaaaaack!! justin timberlake brought his suit &amp; tie #grammys", 'justin timberlake &gt;&gt;&gt;&gt;&gt;&gt; &lt;3 #grammys', 'jay z and justin timberlake?! i think i had a dream about this once... #grammys', 'justin timberlake think he black too! its a justin thing lol @justinbieber #grammys', 'justin timberlake and jay z right now #grammys', "justin timberlake's tribute performance to @instagram #grammys", 'justin timberlake, oh lawd!!! amazing performance #grammys', 'oh justin timberlake.. that suit does you so many favors. #grammys', 'justin timberlake can do no wrong...evening sepia #grammys', 'justin timberlake an jay z ... mind blown. #grammys', '@923nowfm: i mean... justin timberlake is just really damn talented. #grammys &amp; sexy !', 'just realized that justin timberlake was performing. #grammys', 'that cool white boy justin timberlake thooo!!!#grammy2013', "i will always be in love with justin timberlake. it's been ongoing for 12 years #confession #grammys", '*insert joke about tv quality during justin timberlake performance here* #2013grammys', '@thegrammys love justin timberlake so glad he is back', 'justin timberlake #grammy', 'i gotta have justin timberlake. gotta. #grammys', 'justin timberlake... dream!!!! #grammys', 'justin timberlake dancing, he looks so cute haha. #grammys', 'justin timberlake is hot, good performance! #grammys', "thank you justin timberlake. we've all missed you so much. #bestdayever #grammys", 'justin timberlake is the new bruno mars #grammylive', 'why is justin timberlake swagga jackin bruno mars on the #grammys', 'this justin timberlake performance is so boss! #grammys', 'justin timberlake on the #grammys &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;', "gosh do i love justin timberlake. great performance. he's sooo sexy! grammys", 'if you told jay-z back in 1999 that he would be performing with justin timberlake at the #grammys in 2013, he would have shot you.', "justin timberlake and jay-z in black and white on the #grammys  this is what i've been waiting for my entire life.", 'no matter how old i get, i will always be 12 years old again when i see justin timberlake take the stage. #mytweencrush #grammys', 'justin timberlake..i love you even if my soon thinks u r goofy! #grammys', 'justin timberlake  #grammys', 'justin timberlake just needs to realize that nsync is the best he will ever do in his life. #pleasestoptrying #grammys', 'justin timberlake can do no wrong #grammys', 'justin timberlake....you brought sexy back #grammys', 'timberlake\tgawwwwd justin timberlake is the sexiest man on earth!! #grammys', 'justin timberlake #marryme #grammyawards', '#grammys  liking this justin timberlake', 'does anyone care about justin timberlake anymore? #grammys lol.', 'justin timberlake was born with a heart full of soul.#grammys', "justin timberlake's performance is being brought to you by the earlybird filter on @instagram #grammys", 'justin timberlake just shut it down hasthe world in his palm right now. best performance period.  #grammys', 'justin timberlake is rocking the suit and tie!! #grammys #grammys2013', "i don't know how i feel about his new song, but justin timberlake is definitely looking hot in his suit and tie. #sexyisback #grammys", 'justin timberlake and jay-z?! i may die. #grammys', 'justin timberlake can get these draws lmfao #grammys', "@creoletexan: waiting impatiently for justin timberlake's performance. http://t.co/vu4pmiap #getglue @thegrammys adrienne timberlake", "justin timberlake. that's it. #grammys", 'justin timberlake on the #grammys &gt;&gt;&gt;&gt;', 'funny that now justin timberlake is doing the retro thing, five years after xtina, #grammys', 'justin timberlake is coming out with a new cd.... finally!!!!!!! #grammys #jt2020 #soexcited', 'justin timberlake &amp; jay z .... #yes #loveit #grammyawards', 'justin timberlake, please have sex with me. #grammys', 'like a fine wine, justin timberlake just gets better and better with age #grammys', 'justin timberlake can get it. #eyecandy #grammys', 'justin timberlake, you are perfect. that is all. #grammys', 'watching the grammy awards,watching justin timberlake fine ass performing', 'justin timberlake is a r&amp;b genius #grammys', 'justin timberlake  #grammys', 'jay-z &amp; justin timberlake # grammys', '@llcoolj tell justin timberlake that he is so amazingly beautiful #grammy', "i am lovin' justin timberlake's performance! #grammys", 'i love justin timberlake. he will always be an inspiration to me. #grammys', "i love justin timberlake pero i don't know how i feel about this performance.. #grammys", 'justin timberlake and jay-z thank you for that #grammys', 'justin timberlake #grammys &gt; lol', 'justin timberlake is showing these artists how you make a come back ! #grammy2013', 'justin timberlake still got it #grammy', 'justin timberlake sings good live! #grammys', "justin timberlake's hair looks hot on him like that. #grammys", "i don't care for justin timberlake #grammys", 'i loved the performance of justin timberlake and jay-z #grammys', 'dear justin timberlake, i am digging the new look and sound...... #grammynight', 'justin timberlake is ridiculously attractive. #suitandtie #grammys', 'turned the grammys on right on time to see my boy jay z  gettn it w/ justin timberlake', '- i can`t decided, if justin timberlake is attractive without his hair shaved. #thegrammyawards #grammys #justintimberlake', 'justin timberlake performance isnt that bad actually. #grammys', 'justin timberlake is bad, do that jt #grammys #lovehim', "damn i've missed justin timberlake!!!!! #grammys", 'justin timberlake know he fine as hell #grammys', "lovin' the retro vibe with justin timberlake &amp; jayz!  #grammys", 'justin timberlake and robin thicke or miguel is a great combo #grammyawards', 'the justin timberlake and jay-z performance &gt;&gt;&gt;&gt;&gt;&gt; #the55thgrammys', 'justin timberlake still has it #grammys', 'justin timberlake just asked us all to do the step touch. #grammys', "i always like justin timberlake's music #grammys", 'justin timberlake is growing on me.. #grammys', 'watching justin timberlake on the grammys award http://t.co/srulucwg', 'is that @aaroncamper  singing behind justin timberlake on #grammys', 'love discussing justin timberlake over drinks with my father-in-law.  :). #grammys', "totally digging this performance justin timberlake. please stick around. you're music is awesome. #grammys", "omg, i'm dead. justin timberlake is so ridiculously sexy in every way imaginable. #grammys #damn", 'justin timberlake,i love u even if my kids think u r goofy! #grammys', "still unsure about justin timberlake's performance. maybe it'll grow on me #grammys", 'justin timberlake #grammys2013', 'justin timberlakeeee, heeey bebe  #grammys', 'justin timberlake wins the grammys', 'justin timberlake was looking cool...then jay-z walked on stage. #grammys', 'welcome to the justin timberlake show! #grammys #yumminess', 'justin timberlake a real pro on #grammy', 'waiting for wardrobe malfunction on stage for justin timberlake. ;). not a fan!  #grammys', 'i feel like a teen again listening to justin timberlake #grammys', 'david beckham, look out, justin timberlake stole your hairstyle #grammys', 'justin timberlake, you have soul. you can thank #memphis for that! #grammys', 'justin timberlake killed it #grammys', 'plot twist: justin timberlake finishes this song then nsync drops down from the ceiling. #itcouldhappen #grammys', 'i always like justin timberlakes music #grammys', 'justin timberlake is soo fine!! #grammys', 'justin timberlake !!!!!!! #grammys', 'justin timberlake before marrying jessica biel &gt; justin timberlake after marrying jessica biel #grammys', "is justin timberlake trying to be usher? i'm so confused by this performance #grammys", "i can't lie.... i love justin timberlake. #grammys", 'gaaahhhtdayyumm justin timberlake is killin it! love this! #grammys #fb', '@llcoolj what a return by justin timberlake!!! #grammys', 'ill always love justin timberlake #thegrammys', "hey justin timberlake... you're fricking sexyyy and your voice is so beautiful! #jtisbackbaby #grammys", 'justin timberlake is killing #grammys', 'i want to be justin timberlake. that is all... #grammys', 'ladies &amp; gents, justin timberlake is back! #grammys', 'justin timberlake lol #grammys', 'when i was little i wanted to be just like justin timberlake #grammys #fullsailgrammys', 'best best performance frm justin timberlake!!!! #grammyawards', 'timberlake\ttotally digging this performance justin timberlake. please stick around. your music is awesome. #grammys', 'man, i love justin timberlake! #grammys #jt ', 'justin timberlake is still looking good in his suit and tie #grammys', 'rat pack is back with justin timberlake! #gratpack @toddchance @qgroce #grammys', "i'm not a fan but justin timberlake looks really hot tonight #grammy2013", 'justin timberlake all grown up! #grammys #princeinfluence', 'lovin justin timberlake on #grammys tonight! welcome back!', 'justin timberlake dancing in a suit &gt;&gt; #grammys']
+>>> jj
+'justin timberlake performance&gt'
+>>> jj='justin timberlake performance'
+>>> new_jt==[]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'new_jt' is not defined
+>>> new_jt=[]
+>>> for x in jt:
+...     l = nltk.word_tokenize(' '.join(list(seq(jj, x))))
+...     if len(l) > 2:
+...        new_jt.append(x)
+...
+>>> len(new_jt)
+9
+>>> new_jt
+["im ready to see justin timberlake performance #grammy's", 'justin timberlake best performance so far. ##grammys #jayz', "ugh!! my tv's color would go out during the justin timberlake performance #justmyluck #grammys", '*insert joke about tv quality during justin timberlake performance here* #2013grammys', 'this justin timberlake performance is so boss! #grammys', 'justin timberlake just shut it down hasthe world in his palm right now. best performance period.  #grammys', 'justin timberlake performance isnt that bad actually. #grammys', 'the justin timberlake and jay-z performance &gt;&gt;&gt;&gt;&gt;&gt; #the55thgrammys', "is justin timberlake trying to be usher? i'm so confused by this performance #grammys"]
+>>>

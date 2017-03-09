@@ -1,0 +1,209 @@
+login as: aandy
+aandy@nlpgrid-login.seas.upenn.edu's password:
+Last login: Wed Mar  8 02:39:25 2017 from c-76-99-59-224.hsd1.pa.comcast.net
+
+
+nlpgrid10-21 machines are Dell R815 with 512GB RAM and four
+   sixteen-core 6272 2.1GHz CPUs with 16MB L3 cache.
+
+   Send requests and problem reports to research@seas.upenn.edu
+        explaining the problem and include the hostname of the
+        machine on which the problem occur.
+
+
+quota: error while getting quota from nlpgridio3.seas.upenn.edu:/data for aandy                                                                              (id 50554): Connection refused
+aandy@nlpgrid:~> ls
+echo.sh           echo.sh.o2332774  mail  Maildir  public_html
+echo.sh.e2332774  html              Mail  nlp      q-test
+aandy@nlpgrid:~> cd nlp
+aandy@nlpgrid:~/nlp> ls
+GoogleNews-vectors-negative300.bin  swwiki-latest-pages-articles.xml.bz2
+grammy_tweets_only.txt              word.csv
+aandy@nlpgrid:~/nlp> wget https://dumps.wikimedia.org/swwiki/latest/swwiki-lates                                                                             t-pages-articles.xml.bz2
+--2017-03-08 14:49:30--  https://dumps.wikimedia.org/swwiki/latest/swwiki-latest                                                                             -pages-articles.xml.bz2
+Resolving dumps.wikimedia.org (dumps.wikimedia.org)... 208.80.154.11, 2620:0:861                                                                             :1:208:80:154:11
+Connecting to dumps.wikimedia.org (dumps.wikimedia.org)|208.80.154.11|:443... co                                                                             nnected.
+HTTP request sent, awaiting response... 200 OK
+Length: 21607977 (21M) [application/octet-stream]
+Saving to: ‘swwiki-latest-pages-articles.xml.bz2.1’
+
+100%[======================================>] 21,607,977  1.83MB/s   in 11s
+
+2017-03-08 14:49:41 (1.94 MB/s) - ‘swwiki-latest-pages-articles.xml.bz2.1’ saved                                                                              [21607977/21607977]
+
+aandy@nlpgrid:~/nlp> python
+Python 2.7.12 (default, Jul 01 2016, 15:34:22) [GCC] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import multiprocessing
+>>> from gensim.corpora.wikicorpus import WikiCorpus
+>>> from gensim.models.word2vec import LineSentence
+>>> from gensim.models.word2vec import Word2Vec
+>>> wiki=WikiCorpus('swwiki-latest-pages-articles.xml.bz2',lemmatize=False, dict                                                                             ionary={})
+>>> sentences = list(wiki.get_texts())
+>>> params = {'size':200, 'window':10, 'min_count':10, 'workers':max(1, multipro                                                                             cessing.cpu_count() - 1), 'sample': 1E-3,}
+>>> word2vec = Word2Vec(sentences, **params)
+>>> word2vec.most_similar(positive=['woman','king'], negative=['man'])
+[('yourself', 0.5204161405563354), ('sent', 0.5202481150627136), ('tape', 0.5169                                                                             736742973328), ('seventh', 0.5126742720603943), ('dreaming', 0.5108649134635925)                                                                             , ('rather', 0.5106096863746643), ('comin', 0.5089946389198303), ('adventist', 0                                                                             .5011823773384094), ('could', 0.5008188486099243), ('someday', 0.500148653984069                                                                             8)]
+>>> word2vec.save('word2vec_model')
+>>> word2vec.similarity('san_francisco','woman')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1279                                                                             , in similarity
+    return dot(matutils.unitvec(self[w1]), matutils.unitvec(self[w2]))
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1259                                                                             , in __getitem__
+    return self.syn0[self.vocab[words].index]
+KeyError: 'san_francisco'
+>>> bigram_transformer = gensim.models.Phrases(sentences)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'gensim' is not defined
+>>> bigram_transformer = Phrases(sentences)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'Phrases' is not defined
+>>> from gensim.models import Phrases
+>>> bigram_transformer = Phrases(sentences)
+>>> bigram_model = Word2Vec(bigram_transformer[sentences],size=100)
+>>> bigram_model.similarity('man','woman')
+0.72664177289599452
+>>> bigram_model.similarity('man','san francisco')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1279                                                                             , in similarity
+    return dot(matutils.unitvec(self[w1]), matutils.unitvec(self[w2]))
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1259                                                                             , in __getitem__
+    return self.syn0[self.vocab[words].index]
+KeyError: 'san francisco'
+>>> bigram_model.similarity('man','san_francisco')
+0.40008743462020363
+>>> bigram_model.similarity('california','san_francisco')
+0.54312682222052833
+>>> bigram_model.similarity('jay-_z','jay_z')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1279                                                                             , in similarity
+    return dot(matutils.unitvec(self[w1]), matutils.unitvec(self[w2]))
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1259                                                                             , in __getitem__
+    return self.syn0[self.vocab[words].index]
+KeyError: 'jay-_z'
+>>> bigram_model.similarity('jayz','jay_z')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1279                                                                             , in similarity
+    return dot(matutils.unitvec(self[w1]), matutils.unitvec(self[w2]))
+  File "/usr/lib64/python2.7/site-packages/gensim/models/word2vec.py", line 1259                                                                             , in __getitem__
+    return self.syn0[self.vocab[words].index]
+KeyError: 'jayz'
+>>> bigram_model.similarity('jt','justin_timberlake')
+0.66794291382378757
+>>>
+
+===============================bigram example continued========================
+
+: aandy
+aandy@nlpgrid-login.seas.upenn.edu's password:
+Last login: Wed Mar  8 14:48:48 2017 from c-76-99-59-224.hsd1.pa.comcast.net
+
+
+nlpgrid10-21 machines are Dell R815 with 512GB RAM and four
+   sixteen-core 6272 2.1GHz CPUs with 16MB L3 cache.
+
+   Send requests and problem reports to research@seas.upenn.edu
+        explaining the problem and include the hostname of the
+        machine on which the problem occur.
+
+
+quota: error while getting quota from nlpgridio3.seas.upenn.edu:/data for aandy (id 50554): Connection refused
+aandy@nlpgrid:~> ls
+echo.sh           echo.sh.o2332774  mail  Maildir  public_html
+echo.sh.e2332774  html              Mail  nlp      q-test
+aandy@nlpgrid:~> cd nlp
+aandy@nlpgrid:~/nlp> wget https://dumps.wikimedia.org/swwiki/latest/swwiki-latest-pages-articles.xml.bz2
+--2017-03-09 10:32:28--  https://dumps.wikimedia.org/swwiki/latest/swwiki-latest-pages-articles.xml.bz2
+Resolving dumps.wikimedia.org (dumps.wikimedia.org)... 208.80.154.11, 2620:0:861:1:208:80:154:11
+Connecting to dumps.wikimedia.org (dumps.wikimedia.org)|208.80.154.11|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 21607977 (21M) [application/octet-stream]
+Saving to: ‘swwiki-latest-pages-articles.xml.bz2.2’
+
+100%[======================================>] 21,607,977  1.93MB/s   in 10s
+
+2017-03-09 10:32:39 (2.02 MB/s) - ‘swwiki-latest-pages-articles.xml.bz2.2’ saved [21607977/21607977]
+
+aandy@nlpgrid:~/nlp> python
+Python 2.7.12 (default, Jul 01 2016, 15:34:22) [GCC] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import multiprocessing
+>>> from gensim.corpora.wikicorpus import WikiCorpus
+>>> from gensim.models.word2vec import LineSentence
+>>> from gensim.models.word2vec import Word2Vec
+>>> wiki=WikiCorpus('swwiki-latest-pages-articles.xml.bz2',lemmatize=False, dictionary={})
+>>> sentences = list(wiki.get_texts())
+>>> len(sentences)
+19534
+>>> if 'san_francisco' in sentences:
+...     print('Yes')
+...
+>>> if 'Man' in sentences:
+...    print('Yes')
+...
+>>> len(sentences[0])
+377
+>>> len(sentences[0][0])
+13
+>>> sentences[0][0]
+'wanaakiolojia'
+>>> if 'man' in sentences:
+...    print('Yes')
+...
+>>> if 'king' in sentences:
+...    print('Yes')
+...
+>>> len(sentences[0][1])
+10
+>>> sentences[0][1]
+'wakichimba'
+>>> sentences[0][4]
+'ya'
+>>> sentences[0][89]
+'sana'
+>>> sentences[0][100]
+'inatazama'
+>>> sentences[0][150]
+'muhimu'
+>>> sentences[0][200]
+'na'
+>>> sentences[0][250]
+'kabisa'
+>>> word2vec = Word2Vec(sentences, **params)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'params' is not defined
+>>> params = {'size':200, 'window':10, 'min_count':10, 'workers':max(1, multiprocessing.cpu_count() - 1), 'sample': 1E-3,}
+>>> word2vec = Word2Vec(sentences, **params)                                    >>> bigram_transformer = gensim.models.Phrases(sentences)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'gensim' is not defined
+>>> import gensim
+>>> bigram_transformer = gensim.models.Phrases(sentences)
+>>> if 'san_francisco' in bigram_transformer:
+...    print('Yes')
+...
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/gensim/models/phrases.py", line 212, in __getitem__
+    s, new_s = [utils.any2utf8(w) for w in sentence], []
+TypeError: 'int' object is not iterable
+>>> if 'beyonce' in sentences:
+...    print('Yes')
+...
+>>> bigram_model = Word2Vec(bigram_transformer[sentences],size=100)
+>>> if 'san_francisco' in bigram_model:
+...    print('Yes')
+...
+Yes
+>>> if 'beyonce' in word2vec:
+...    print('Yes')
+...
+Yes
+>>>

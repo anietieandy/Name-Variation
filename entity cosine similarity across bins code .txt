@@ -1,0 +1,136 @@
+Python 3.4.4 (v3.4.4:737efcadf5a6, Dec 20 2015, 19:28:18) [MSC v.1600 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import nltk
+>>> import pickle
+>>> bin1=pickle.load(open('dict_bin1.txt_.pkl','rb'))
+>>> bin2=pickle.load(open('dict_bin2.txt_.pkl','rb'))
+>>> bin3=pickle.load(open('dict_bin3.txt_.pkl','rb'))
+>>> bin4=pickle.load(open('dict_bin4.txt_.pkl','rb'))
+>>> bin5=pickle.load(open('dict_bin5.txt_.pkl','rb'))
+>>> bin6=pickle.load(open('dict_bin6.txt_.pkl','rb'))
+>>> bin7=pickle.load(open('dict_bin7.txt_.pkl','rb'))
+>>> bin8=pickle.load(open('dict_bin8.txt_.pkl','rb'))
+>>> bin9=pickle.load(open('dict_bin9.txt_.pkl','rb'))
+>>> bin10=pickle.load(open('dict_bin10.txt_.pkl','rb'))
+>>> bin11=pickle.load(open('dict_bin11.txt_.pkl','rb'))
+>>> b1=[]
+>>> for i in b1.keys():
+...     b1.append(bin1.get(i))
+...
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'list' object has no attribute 'keys'
+>>> for i in bin.keys():
+...     b1.append(bin1.get(i))
+...
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'builtin_function_or_method' object has no attribute 'keys'
+>>> for i in bin1.keys():
+...     b1.append(bin1.get(i))
+...
+>>> for i in bin2.keys():
+...     b2.append(bin2.get(i))
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+NameError: name 'b2' is not defined
+>>> b2=[]
+>>> b3=[]
+>>> b4=[]
+>>> b5=[]
+>>> b6=[]
+>>> b7=[]
+>>> b8=[]
+>>> b9=[]
+>>> b10=[]
+>>> b11=[]
+>>> for i in bin2.keys():
+...     b2.append(bin2.get(i))
+...
+>>> for i in bin3.keys():
+...     b3.append(bin3.get(i))
+...
+>>> for i in bin4.keys():
+...     b4.append(bin4.get(i))
+...
+>>> for i in bin5.keys():
+...     b5.append(bin5.get(i))
+...
+>>> for i in bin6.keys():
+...     b6.append(bin6.get(i))
+...
+>>> for i in bin7.keys():
+...     b7.append(bin7.get(i))
+...
+>>> for i in bin8.keys():
+...     b8.append(bin8.get(i))
+...
+>>> for i in bin9.keys():
+...     b9.append(bin9.get(i))
+...
+>>> for i in bin10.keys():
+...     b10.append(bin10.get(i))
+...
+>>> for i in bin11.keys():
+...     b11.append(bin11.get(i))
+...
+>>> entity_vector=[]
+>>> l=[]
+>>> for x in range(len(bin1)):
+...     l.append([b1[x], b2[x],b3[x],b4[x],b5[x],b6[x],b7[x],b8[x],b9[x],b10[x], b11[x]])
+...     entity_vector.append(l)
+...
+>>> len(entity_vector)
+1469
+>>> len(entity_vector[0])
+1469
+>>> len(entity_vector[0][0])
+11
+>>> entity_vector[0][0]
+[976, 976, 976, 976, 976, 976, 976, 976, 976, 976, 976]
+>>> from sklearn.metrics.pairwise import cosine_similarity
+>>> cosine=[]
+>>> for y in range(len(bin1)):
+...     cosine.append(\es
+  File "<stdin>", line 2
+    cosine.append(\es
+                    ^
+SyntaxError: unexpected character after line continuation character
+>>> fpr x in range(len(l)):
+  File "<stdin>", line 1
+    fpr x in range(len(l)):
+        ^
+SyntaxError: invalid syntax
+>>> for x in range(len(l)):
+...     for y in range(len(l)):
+...        cosine.append(cosine_similarity(l[x], l[y]))
+...
+>>> len(cosine)
+2157961
+>>> len(cosine[0])
+1
+>>> cosine[0]
+array([[ 1.]])
+>>> import numpy
+>>> new_list=[cos_ent[i:i+1469] for i in range(0, len(cos_ent),1469)]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'cos_ent' is not defined
+>>> new_list=[cosine[i:i+1469] for i in range(0, len(cosine),1469)]
+>>> len(new_list)
+1469
+>>> len(new_list[0])
+1469
+>>> cos_new=[]
+>>> for x in range(len(new_list)):
+...     cos_new.append(lj
+...
+... k)
+  File "<stdin>", line 4
+    k)
+    ^
+SyntaxError: invalid syntax
+>>> a=numpy.asarray(new_list)
+>>> numpy.savetxt('foo.csv', a, delimiter=',')
+>>>

@@ -1,0 +1,133 @@
+Python 3.4.4 (v3.4.4:737efcadf5a6, Dec 20 2015, 19:28:18) [MSC v.1600 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os, sys
+>>> import nltk
+>>> import pickle
+>>> from collections import defaultdict
+>>> tweets=[]
+>>> from nltk.util import ngrams
+>>> import codecs
+>>> path = 'C:/Python34/name_variation_research/grammy_tweets_only.txt'
+>>> with codecs.open(path, encoding='utf8') as myfile:
+...      for line in myfile:
+...          tweets.append(line.lower().strip())
+...
+>>> def chunk(l,n):
+...     for i in range(0, len(l), n):
+...         yield l[i:i+n]
+...
+>>> tweet_bin = list(chunk(tweets,976))
+>>> len(tweet_bin)
+11
+>>> unigram=[]
+>>> unigram_str=[]
+>>> for y in range(len(tweet_bin)):
+...    for l in range(len(tweet_bin[y])):
+...        tokens = nltk.word_tokenize(tweet_bin[y][l])
+...        unigram = ngrams(tokens,1)
+...        for x in unigram:
+...            unigram_str.append(' '.join(x))
+...
+>>> len(unigram)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: object of type 'generator' has no len()
+>>> len(unigram_str)
+171340
+>>> words = list(set(unigram_str))
+>>> len(words)
+12799
+>>> bin0=[]
+>>> bin1=[]
+>>> bin2=[]
+>>> bin3=[]
+>>> bin4=[]
+>>> bin5=[]
+>>> bin6=[]
+>>> bin7=[]
+>>> bin8=[]
+>>> bin9=[]
+>>> bin10=[]
+>>> bin=[]
+>>> for x in range(len(tweet_bin)):
+...     wordcount = defaultdict(int)
+...     for w in words:
+...         wordcount[w]=0
+...         for l in tweet_bin[x]:
+...             if w in l:
+...                wordcount[w] +=1
+...     bin.append(wordcount)
+...
+>>> for i in bin[0].keys():
+...     b0.append(bin[0].get(i))
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+NameError: name 'b0' is not defined
+>>> for i in bin[0].keys():
+...     bin0.append(bin[0].get(i))
+...
+>>> for i in bin[1].keys():
+...     bin1.append(bin[1].get(i))
+...
+>>> for i in bin[2].keys():
+...     bin2.append(bin[2].get(i))
+...
+>>> for i in bin[3].keys():
+...     bin3.append(bin[3].get(i))
+...
+>>> for i in bin[4].keys():
+...     bin4.append(bin[4].get(i))
+...
+>>> for i in bin[5].keys():
+...     bin5.append(bin[5].get(i))
+...
+>>> for i in bin[6].keys():
+...     bin6.append(bin[6].get(i))
+...
+>>> for i in bin[7].keys():
+...     bin7.append(bin[7].get(i))
+...
+>>> for i in bin[8].keys():
+...     bin8.append(bin[8].get(i))
+...
+>>> for i in bin[9].keys():
+...     bin9.append(bin[9].get(i))
+...
+>>> for i in bin[10].keys():
+...     bin10.append(bin[10].get(i))
+...
+>>> word_vector=[]
+>>> for x in range(len(b0)):
+... ...     p.append([b0[x], b1[x], b2[x], b3[x], b4[x], b5[x], b6[x], b7[x], b8[x], b9[x], b10[x]])
+  File "<stdin>", line 2
+    ...     p.append([b0[x], b1[x], b2[x], b3[x], b4[x], b5[x], b6[x], b7[x], b8[x], b9[x], b10[x]])
+      ^
+IndentationError: expected an indented block
+>>> for x in range(len(b0)):
+...     word_vector.append([bin0[x], bin1[x], bin2[x], bin3[x], bin4[x], bin5[x], bin6[x], bin7[x], bin8[x], bin9[x], bin10[x]])
+...
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'b0' is not defined
+>>> for x in range(len(bin0)):
+...     word_vector.append([bin0[x], bin1[x], bin2[x], bin3[x], bin4[x], bin5[x], bin6[x], bin7[x], bin8[x], bin9[x], bin10[x]])
+...
+>>> len(word_vector)
+12799
+>>> word_vector[0][0]
+0
+>>> len(word_vector[0])
+11
+>>> word_vector[0]
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+>>> word_cosine=[]
+>>> from sklearn.metrics.pairwise import cosine_similarity
+>>> for m in range(len(word_vector)):
+...     for n in range(len(word_vector)):
+...         word_cosine.append(cosine_similarity(word_vector[x], word_vector[y]))
+...
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+MemoryError
+>>>
